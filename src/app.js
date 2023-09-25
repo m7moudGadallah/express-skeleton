@@ -1,6 +1,6 @@
 // Import dependencies
 const express = require('express');
-const middlewareLoader = require('./middlewares');
+const { middlewaresLoader } = require('./middlewares');
 const routes = require('./routes');
 
 /**
@@ -27,12 +27,12 @@ async function createApp(database) {
     // Create express app
     const app = express();
 
-    middlewareLoader(app).pre();
+    middlewaresLoader(app).pre();
 
     // Mount routes
     routes(app);
 
-    middlewareLoader(app).post();
+    middlewaresLoader(app).post();
 
     return app;
 }
