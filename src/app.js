@@ -1,4 +1,5 @@
 // Import dependencies
+require('colors');
 const express = require('express');
 const { middlewaresLoader } = require('./middlewares');
 const routes = require('./routes');

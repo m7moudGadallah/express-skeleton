@@ -14,23 +14,19 @@ const { NODE_ENV: MODE, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_MIN } = process.env;
  * @param {Express} app - The Express application instance to which pre-middlewares will be applied.
  * @param {Object} dependencies - An object containing required middleware dependencies.
  * @param {Function} dependencies.morgan - The {@link external:morgan} logger middleware function.
- * @param {Function} dependencies.json - The {@link external:express.json} body parsing middleware function.
- * @param {Function} dependencies.urlencoded - The {@link external:express.urlencoded} body parsing middleware function.
  * @param {Function} dependencies.cookieParser - The {@link external:cookie-parser} middleware function.
  * @param {Function} dependencies.helmet - The {@link external:helmet} middleware function for setting security headers.
  * @param {Function} dependencies.rateLimit - The {@link external:express-rate-limit} middleware function for API rate limiting.
  * @param {Function} dependencies.xss - The {@link external:xss-clean} middleware function for data sanitization against XSS attacks.
- * @param {Function} dependencies.hpp -  The {@link external:hpp} middleware function for preventing parameter pollution.
+ * @param {Function} dependencies.hpp - The {@link external:hpp} middleware function for preventing parameter pollution.
  * @param {Function} dependencies.cors - The {@link external:cors} middleware function for enabling cross-origin resource sharing.
- * @param {Function} dependencies.path - dependencies.path - The {@link external:path} module for working with file paths.
- * @param {Function} dependencies.static - The {@link external:express.static} middleware function for serving static files.
+ * @param {Function} dependencies.path - The {@link external:path} module for working with file paths.
+ * @param {Function} dependencies.express - The {@link external:express} module for creating Express.js applications.
  */
 module.exports = (app, dependencies) => {
     const {
         morgan,
-        json,
-        urlencoded,
-        static,
+        express,
         cookieParser,
         helmet,
         rateLimit,
@@ -61,10 +57,10 @@ module.exports = (app, dependencies) => {
     }
 
     // Parse JSON bodies
-    app.use(json({ limit: '10kb' }));
+    app.use(express.json({ limit: '10kb' }));
 
     // Parse URL-encoded bodies with extended support and a size limit of 10kb.
-    app.use(urlencoded({ extended: true, limit: '10kb' }));
+    app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
     // Parse cookies
     app.use(cookieParser());
@@ -93,5 +89,5 @@ module.exports = (app, dependencies) => {
     app.use(cors());
 
     // Serve static files from the 'public' directory.
-    app.use(static(path.join(__dirname, '../public')));
+    app.use(express.static(path.join(__dirname, '../public')));
 };

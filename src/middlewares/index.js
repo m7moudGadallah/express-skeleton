@@ -1,6 +1,6 @@
 // Load dependencies
 const morgan = require('morgan');
-const { json, urlencoded, static } = require('express');
+const express = require('express');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { rateLimit } = require('express-rate-limit');
@@ -41,9 +41,7 @@ module.exports = {
             pre() {
                 preMiddlewaresLoader(app, {
                     morgan,
-                    json,
-                    urlencoded,
-                    static,
+                    express,
                     cookieParser,
                     helmet,
                     rateLimit,
