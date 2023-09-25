@@ -4,7 +4,7 @@
   "description": "starter project",
   "main": "server.js",
   "scripts": {
-    "test": "export NODE_ENV=testing || SET \"NODE_ENV=testing\" && jest --watchAll",
+    "test": "export NODE_ENV=testing || SET \"NODE_ENV=testing\" && jest -i",
     "test:coverage": "export NODE_ENV=testing || SET \"NODE_ENV=testing\" && jest -i --coverage",
     "start:dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon -L server"
