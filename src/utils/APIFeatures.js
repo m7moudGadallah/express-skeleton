@@ -71,7 +71,7 @@ class APIFeatures {
      * @returns {string} The select options array to be used in a MongoDB query.
      */
     parseSelectOptions(fields = '') {
-        console.log(this.#reqQuery.fields);
+        // console.log(this.#reqQuery.fields);
         if (this.#reqQuery.fields)
             return this.#reqQuery.fields.split(',').join(' ');
         if (this.#reqQuery.select)
