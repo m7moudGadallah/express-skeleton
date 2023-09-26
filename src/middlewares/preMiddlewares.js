@@ -52,7 +52,7 @@ module.exports = (app, dependencies) => {
   app.use(helmet());
 
   // Apply pre-middlewares based on the environment
-  if (MODE === 'development') {
+  if ((process.env.NODE_ENV || MODE) === 'development') {
     applyDevelopmentMiddlewares(app, morgan);
   }
 
