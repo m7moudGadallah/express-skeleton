@@ -1,9 +1,6 @@
 // Load all Error Customizers
 const databaseErrorCustomizer = require('./databaseErrorCustomizer');
 
-// Load environment variables
-const { NODE_ENV: MODE } = process.env;
-
 /**
  * Global error handling middleware for Express.js.
  *
@@ -66,8 +63,6 @@ module.exports = (dependencies) => {
                 .send();
         }
 
-        console.error('ERROR 💥', err);
-
         return new StandardJsonResponse(res, 500)
             .setMainContent(false, 'something went wrong')
             .setFailedPayload({
@@ -89,8 +84,8 @@ module.exports = (dependencies) => {
         err.statusCode = err.statusCode || 500;
         err.status = err.status || 'Error';
 
-        if (MODE === 'production') {
-            let error = { ...err };
+        if (process.env.NODE_ENV === 'production') {
+            let error = { ...err, message: err.message };
 
             error = databaseErrorCustomizer(error);
 
