@@ -9,20 +9,18 @@
  * @returns {function} The middleware function for handling undefined routes.
  */
 module.exports = (dependencies) => {
-    const { AppError } = dependencies;
+  const { AppError } = dependencies;
 
-    /**
-     * Middleware to handle undefined routes by generating a 404 error.
-     * @function
-     * @name undefinedRoutesHandler
-     * @param {Object} req - The Express request object.
-     * @param {Object} res - The Express response object.
-     * @param {function} next - The next middleware function.
-     */
-    const undefinedRoutesHandler = (req, res, next) =>
-        next(
-            new AppError(`Can't find ${req.originalUrl} on this server!`, 404)
-        );
+  /**
+   * Middleware to handle undefined routes by generating a 404 error.
+   * @function
+   * @name undefinedRoutesHandler
+   * @param {Object} req - The Express request object.
+   * @param {Object} res - The Express response object.
+   * @param {function} next - The next middleware function.
+   */
+  const undefinedRoutesHandler = (req, res, next) =>
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 
-    return undefinedRoutesHandler;
+  return undefinedRoutesHandler;
 };

@@ -13,9 +13,9 @@ const errorHandlers = require('./errorHandlers');
  * @param {Object} app - The Express.js application instance.
  */
 module.exports = (app) => {
-    // error handling for undefined routes
-    app.all('*', errorHandlers.undefinedRouteHandler);
+  // error handling for undefined routes
+  app.all('*', errorHandlers.undefinedRouteHandler);
 
-    // global error handling
-    app.use(errorHandlers.globalErrorHandler);
+  // global error handling
+  app.use(errorHandlers.globalErrorHandler);
 };

@@ -63,16 +63,6 @@ module.exports = (dependencies) => {
         .send();
     }
 
-<<<<<<< HEAD
-        return new StandardJsonResponse(res, 500)
-            .setMainContent(false, 'something went wrong')
-            .setFailedPayload({
-                status: 'error',
-                message: 'Something went very wrong!',
-            })
-            .send();
-    };
-=======
     console.error('ERROR 💥', err);
 
     return new JsonResponse(res, 500)
@@ -83,7 +73,6 @@ module.exports = (dependencies) => {
       })
       .send();
   };
->>>>>>> 555dd9732838f17ca54606d95ceceb61adc1da90
 
   /**
    * Global error handler middleware.
@@ -97,13 +86,8 @@ module.exports = (dependencies) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'Error';
 
-<<<<<<< HEAD
-        if (process.env.NODE_ENV === 'production') {
-            let error = { ...err, message: err.message };
-=======
-    if (MODE === 'production') {
-      let error = { ...err };
->>>>>>> 555dd9732838f17ca54606d95ceceb61adc1da90
+    if (process.env.NODE_ENV === 'production') {
+      let error = { ...err, message: err.message };
 
       error = databaseErrorHandler(error);
 
