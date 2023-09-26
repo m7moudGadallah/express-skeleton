@@ -1,4 +1,4 @@
-const { AppError, StandardJsonResponse } = require('../../utils');
+const { AppError, JsonResponse } = require('../../utils');
 
 // Loader Error Handlers
 const undefinedRouteHandlerLoader = require('./undefinedRoutesHandler');
@@ -16,6 +16,6 @@ const globalErrorHandlerLoader = require('./globalErrorHandler');
  * @property {Function} globalErrorHandler - Middleware for handling global application errors.
  */
 module.exports = {
-    undefinedRouteHandler: undefinedRouteHandlerLoader({ AppError }),
-    globalErrorHandler: globalErrorHandlerLoader({ StandardJsonResponse }),
+  undefinedRouteHandler: undefinedRouteHandlerLoader({ AppError }),
+  globalErrorHandler: globalErrorHandlerLoader({ JsonResponse }),
 };

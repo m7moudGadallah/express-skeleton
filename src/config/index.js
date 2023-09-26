@@ -14,12 +14,12 @@ const Database = require('./Database');
 
 // Environment variables
 const {
-    NODE_ENV: MODE,
-    DATABASE_URI,
-    DATABASE_DEV,
-    DATABASE_PROD,
-    DATABASE_TEST,
-    DATABASE_PASSWORD,
+  NODE_ENV: MODE,
+  DATABASE_URL,
+  DATABASE_DEV,
+  DATABASE_PROD,
+  DATABASE_TEST,
+  DATABASE_PASSWORD,
 } = process.env;
 
 /**
@@ -29,9 +29,9 @@ const {
  * @returns {string} - The selected database connection string.
  */
 const selectDB = (MODE) => {
-    if (MODE === 'development') return DATABASE_DEV;
-    if (MODE === 'production') return DATABASE_PROD;
-    return DATABASE_TEST;
+  if (MODE === 'development') return DATABASE_DEV;
+  if (MODE === 'production') return DATABASE_PROD;
+  return DATABASE_TEST;
 };
 
 /**
@@ -40,9 +40,9 @@ const selectDB = (MODE) => {
  * @type {Database}
  */
 const database = new Database(dbClient, {
-    databaseURI: DATABASE_URI,
-    databaseName: selectDB(MODE),
-    databasePassword: DATABASE_PASSWORD,
+  databaseURI: DATABASE_URL,
+  databaseName: selectDB(MODE),
+  databasePassword: DATABASE_PASSWORD,
 });
 
 /**
