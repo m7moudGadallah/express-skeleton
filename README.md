@@ -89,6 +89,11 @@ This is a project skeleton for building Node.js applications with the Express.js
 
 Contributions are welcome!
 
+**Here is a list of contributors:**
+
+- Mahmoud Gadallah ([Github](https://github.com/m7moudGadallah) | [Linkdin](https://www.linkedin.com/in/m7moudgadallah/))
+- Marwan Radwan ([Github](https://github.com/MarwanRadwan7) | [Linkdin](https://www.linkedin.com/in/marwan-radwan))
+
 ## License
 
 This project is licensed under the [LICENSE](LICENSE).
