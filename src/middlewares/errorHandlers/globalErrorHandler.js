@@ -11,8 +11,8 @@ const { NODE_ENV: MODE } = process.env;
  *
  * @module globalErrorHandler
  *
- * @param {Object} dependencies - An object containing dependencies, typically including a `StandardJsonResponse` class for constructing standardized JSON responses.
- * @param {Function} dependencies.StandardJsonResponse - A constructor function for creating standardized JSON response instances.
+ * @param {Object} dependencies - An object containing dependencies, typically including a `JsonResponse` class for constructing standardized JSON responses.
+ * @param {Function} dependencies.JsonResponse - A constructor function for creating standardized JSON response instances.
  * @returns {Function} - A global error handling middleware function for Express.js.
  *
  * @function globalErrorHandeler
@@ -25,7 +25,7 @@ const { NODE_ENV: MODE } = process.env;
  * @throws {Error} Throws an error if any of the required dependencies are missing.
  */
 module.exports = (dependencies) => {
-  const { StandardJsonResponse } = dependencies;
+  const { JsonResponse } = dependencies;
 
   /**
    * Sends error response in development environment.
@@ -37,7 +37,7 @@ module.exports = (dependencies) => {
   const sendErrorDev = (err, req, res) => {
     console.log(err.message.brightRed);
 
-    return new StandardJsonResponse(res, err.statusCode)
+    return new JsonResponse(res, err.statusCode)
       .setMainContent(false, 'something went wrong')
       .setFailedPayload({
         status: err.status,
@@ -57,7 +57,7 @@ module.exports = (dependencies) => {
    */
   const sendErrorProd = (err, req, res) => {
     if (err.isOperational) {
-      return new StandardJsonResponse(res, err.statusCode)
+      return new JsonResponse(res, err.statusCode)
         .setMainContent(false, 'something went wrong')
         .setFailedPayload({
           status: err.status,
@@ -68,7 +68,7 @@ module.exports = (dependencies) => {
 
     console.error('ERROR 💥', err);
 
-    return new StandardJsonResponse(res, 500)
+    return new JsonResponse(res, 500)
       .setMainContent(false, 'something went wrong')
       .setFailedPayload({
         status: 'error',
