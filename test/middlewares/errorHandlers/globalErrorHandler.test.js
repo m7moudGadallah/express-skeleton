@@ -1,6 +1,6 @@
 require('colors');
 const globalErrorHandeler = require('../../../src/middlewares/errorHandlers/globalErrorHandler');
-const { StandardJsonResponse } = require('../../../src/utils');
+const { JsonResponse } = require('../../../src/utils');
 
 // Mock express request, response and next
 const mockRequest = {};
@@ -36,7 +36,7 @@ describe('globalErrorHandeler', () => {
         error.statusCode = 400;
 
         // Pass error to middleware
-        const middleware = globalErrorHandeler({ StandardJsonResponse });
+        const middleware = globalErrorHandeler({ JsonResponse });
         middleware(error, mockRequest, mockResponse, mockNext);
 
         // Assert that response status setted to error status code
@@ -64,7 +64,7 @@ describe('globalErrorHandeler', () => {
         error.statusCode = 400;
 
         // Pass error to middleware
-        const middleware = globalErrorHandeler({ StandardJsonResponse });
+        const middleware = globalErrorHandeler({ JsonResponse });
         middleware(error, mockRequest, mockResponse, mockNext);
 
         // Assert that response status setted to error status code
@@ -93,7 +93,7 @@ describe('globalErrorHandeler', () => {
         error.isOperational = true;
 
         // Pass error to middleware
-        const middleware = globalErrorHandeler({ StandardJsonResponse });
+        const middleware = globalErrorHandeler({ JsonResponse });
         middleware(error, mockRequest, mockResponse, mockNext);
 
         // Assert that response status setted to error status code
@@ -119,7 +119,7 @@ describe('globalErrorHandeler', () => {
         error.isOperational = false;
 
         // Pass error to middleware
-        const middleware = globalErrorHandeler({ StandardJsonResponse });
+        const middleware = globalErrorHandeler({ JsonResponse });
         middleware(error, mockRequest, mockResponse, mockNext);
 
         // Assert that response status setted to error status code

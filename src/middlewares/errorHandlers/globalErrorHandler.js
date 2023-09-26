@@ -1,5 +1,5 @@
-// Load all Error Customizers
-const databaseErrorCustomizer = require('./databaseErrorCustomizer');
+// Load all Error Handler
+const databaseErrorHandler = require('./databaseErrorHandler');
 
 /**
  * Global error handling middleware for Express.js.
@@ -8,8 +8,8 @@ const databaseErrorCustomizer = require('./databaseErrorCustomizer');
  *
  * @module globalErrorHandler
  *
- * @param {Object} dependencies - An object containing dependencies, typically including a `StandardJsonResponse` class for constructing standardized JSON responses.
- * @param {Function} dependencies.StandardJsonResponse - A constructor function for creating standardized JSON response instances.
+ * @param {Object} dependencies - An object containing dependencies, typically including a `JsonResponse` class for constructing standardized JSON responses.
+ * @param {Function} dependencies.JsonResponse - A constructor function for creating standardized JSON response instances.
  * @returns {Function} - A global error handling middleware function for Express.js.
  *
  * @function globalErrorHandeler
@@ -22,47 +22,48 @@ const databaseErrorCustomizer = require('./databaseErrorCustomizer');
  * @throws {Error} Throws an error if any of the required dependencies are missing.
  */
 module.exports = (dependencies) => {
-    const { StandardJsonResponse } = dependencies;
+  const { JsonResponse } = dependencies;
 
-    /**
-     * Sends error response in development environment.
-     * @function sendErrorDev
-     * @param {Error} err - The error object.
-     * @param {object} req - The request object.
-     * @param {object} res - The response object.
-     */
-    const sendErrorDev = (err, req, res) => {
-        console.log(err.message.brightRed);
+  /**
+   * Sends error response in development environment.
+   * @function sendErrorDev
+   * @param {Error} err - The error object.
+   * @param {object} req - The request object.
+   * @param {object} res - The response object.
+   */
+  const sendErrorDev = (err, req, res) => {
+    console.log(err.message.brightRed);
 
-        return new StandardJsonResponse(res, err.statusCode)
-            .setMainContent(false, 'something went wrong')
-            .setFailedPayload({
-                status: err.status,
-                error: err,
-                message: err.message,
-                stack: err.stack,
-            })
-            .send();
-    };
+    return new JsonResponse(res, err.statusCode)
+      .setMainContent(false, 'something went wrong')
+      .setFailedPayload({
+        status: err.status,
+        error: err,
+        message: err.message,
+        stack: err.stack,
+      })
+      .send();
+  };
 
-    /**
-     * Sends error response in production environment.
-     * @function sendErrorProd
-     * @param {Error} err - The error object.
-     * @param {object} req - The request object.
-     * @param {object} res - The response object.
-     */
-    const sendErrorProd = (err, req, res) => {
-        if (err.isOperational) {
-            return new StandardJsonResponse(res, err.statusCode)
-                .setMainContent(false, 'something went wrong')
-                .setFailedPayload({
-                    status: err.status,
-                    message: err.message,
-                })
-                .send();
-        }
+  /**
+   * Sends error response in production environment.
+   * @function sendErrorProd
+   * @param {Error} err - The error object.
+   * @param {object} req - The request object.
+   * @param {object} res - The response object.
+   */
+  const sendErrorProd = (err, req, res) => {
+    if (err.isOperational) {
+      return new JsonResponse(res, err.statusCode)
+        .setMainContent(false, 'something went wrong')
+        .setFailedPayload({
+          status: err.status,
+          message: err.message,
+        })
+        .send();
+    }
 
+<<<<<<< HEAD
         return new StandardJsonResponse(res, 500)
             .setMainContent(false, 'something went wrong')
             .setFailedPayload({
@@ -71,29 +72,46 @@ module.exports = (dependencies) => {
             })
             .send();
     };
+=======
+    console.error('ERROR 💥', err);
 
-    /**
-     * Global error handler middleware.
-     * @function globalErrorHandeler
-     * @param {Error} err - The error object.
-     * @param {object} req - The request object.
-     * @param {object} res - The response object.
-     * @param {function} next - The next middleware function.
-     */
-    const globalErrorHandeler = (err, req, res, next) => {
-        err.statusCode = err.statusCode || 500;
-        err.status = err.status || 'Error';
+    return new JsonResponse(res, 500)
+      .setMainContent(false, 'something went wrong')
+      .setFailedPayload({
+        status: 'error',
+        message: 'Something went very wrong!',
+      })
+      .send();
+  };
+>>>>>>> 555dd9732838f17ca54606d95ceceb61adc1da90
 
+  /**
+   * Global error handler middleware.
+   * @function globalErrorHandeler
+   * @param {Error} err - The error object.
+   * @param {object} req - The request object.
+   * @param {object} res - The response object.
+   * @param {function} next - The next middleware function.
+   */
+  const globalErrorHandeler = (err, req, res, next) => {
+    err.statusCode = err.statusCode || 500;
+    err.status = err.status || 'Error';
+
+<<<<<<< HEAD
         if (process.env.NODE_ENV === 'production') {
             let error = { ...err, message: err.message };
+=======
+    if (MODE === 'production') {
+      let error = { ...err };
+>>>>>>> 555dd9732838f17ca54606d95ceceb61adc1da90
 
-            error = databaseErrorCustomizer(error);
+      error = databaseErrorHandler(error);
 
-            return sendErrorProd(error, req, res);
-        }
+      return sendErrorProd(error, req, res);
+    }
 
-        return sendErrorDev(err, req, res);
-    };
+    return sendErrorDev(err, req, res);
+  };
 
-    return globalErrorHandeler;
+  return globalErrorHandeler;
 };

@@ -9,20 +9,21 @@ const createApp = require('./src/app');
  * @param {Function} createApp - A function that creates and configures the Express application.
  * @throws {Error} If there's an issue starting the application.
  */
-const startApp = (database, createApp) => {
-    const { NODE_ENV: MODE, PORT = 3000 } = process.env;
 
-    createApp(database).then((app) => {
-        app.listen(PORT, () => {
-            console.log(
-                'App is running in '.brightMagenta.underline.bold.italic +
-                    MODE.brightYellow.underline.bold.italic +
-                    ' mode on port '.brightMagenta.underline.bold.italic +
-                    PORT.brightYellow.underline.bold.italic +
-                    ' 🚀...'.brightMagenta.underline.bold.italic
-            );
-        });
+const startApp = (database, createApp) => {
+  const { NODE_ENV: MODE, PORT = 3000 } = process.env;
+
+  createApp(database).then((app) => {
+    app.listen(PORT, () => {
+      console.log(
+        'App is running in '.brightMagenta.underline.bold.italic +
+          MODE.brightYellow.underline.bold.italic +
+          ' mode on port '.brightMagenta.underline.bold.italic +
+          PORT.brightYellow.underline.bold.italic +
+          ' 🚀...'.brightMagenta.underline.bold.italic
+      );
     });
+  });
 };
 
 // Start the application
