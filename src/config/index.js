@@ -19,6 +19,7 @@ const {
   DATABASE_DEV,
   DATABASE_PROD,
   DATABASE_TEST,
+  DATABASE_USERNAME,
   DATABASE_PASSWORD,
 } = process.env;
 
@@ -40,9 +41,10 @@ const selectDB = (MODE) => {
  * @type {Database}
  */
 const database = new Database(dbClient, {
-  databaseURI: DATABASE_URL,
+  databaseURL: DATABASE_URL,
   databaseName: selectDB(MODE),
-  databasePassword: DATABASE_PASSWORD,
+  username: DATABASE_USERNAME,
+  password: DATABASE_PASSWORD,
 });
 
 /**

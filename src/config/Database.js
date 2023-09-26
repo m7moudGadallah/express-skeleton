@@ -45,7 +45,7 @@ class Database {
    */
   constructor(dbClient, options = {}) {
     // Destructure options within the constructor body
-    const { databaseURL, databaseName, databasePassword } = options;
+    const { databaseURL, databaseName, username, password } = options;
 
     // If no instance exists, create and store it
     if (!Database.#instance) {
@@ -57,11 +57,12 @@ class Database {
 
       // Construct the connection URL
       //   TODO CONSTRUCT THE CORRECT URL
-      // Commented to prevent runtime error
 
-      //   this.#connectionURL = databaseURL
-      //     .replace('<DB>', databaseName)
-      //     .replace('<password>', databasePassword);
+      // TODO: Uncomment once you sett this varaibles in .env
+      // this.#connectionURL = databaseURL
+      //   .replace('<username>', username)
+      //   .replace('<password>', password)
+      //   .replace('<DB>', databaseName);
 
       Database.#instance = this;
     }
