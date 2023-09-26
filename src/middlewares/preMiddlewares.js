@@ -24,70 +24,69 @@ const { NODE_ENV: MODE, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_MIN } = process.env;
  * @param {Function} dependencies.express - The {@link external:express} module for creating Express.js applications.
  */
 module.exports = (app, dependencies) => {
-    const {
-        morgan,
-        express,
-        cookieParser,
-        helmet,
-        rateLimit,
-        xss,
-        hpp,
-        cors,
-        path,
-    } = dependencies;
+  const {
+    morgan,
+    express,
+    cookieParser,
+    helmet,
+    rateLimit,
+    xss,
+    hpp,
+    cors,
+    path,
+  } = dependencies;
 
-    /**
-     * Apply development-specific pre-middlewares.
-     * @function
-     * @name module:middlewares/preMiddlewares#applyDevelopmentMiddlewares
-     * @param {Express} app - The Express application instance.
-     * @param {function} morgan - The Morgan logger middleware function.
-     */
-    const applyDevelopmentMiddlewares = (app, morgan) => {
-        // Log requested endpoints in development mode
-        app.use(morgan('dev'));
-    };
+  /**
+   * Apply development-specific pre-middlewares.
+   * @function
+   * @name module:middlewares/preMiddlewares#applyDevelopmentMiddlewares
+   * @param {Express} app - The Express application instance.
+   * @param {function} morgan - The Morgan logger middleware function.
+   */
+  const applyDevelopmentMiddlewares = (app, morgan) => {
+    // Log requested endpoints in development mode
+    app.use(morgan('dev'));
+  };
 
-    // Setting security http headers
-    app.use(helmet());
+  // Setting security http headers
+  app.use(helmet());
 
-    // Apply pre-middlewares based on the environment
-    if (MODE === 'development') {
-        applyDevelopmentMiddlewares(app, morgan);
-    }
+  // Apply pre-middlewares based on the environment
+  if (MODE === 'development') {
+    applyDevelopmentMiddlewares(app, morgan);
+  }
 
-    // Parse JSON bodies
-    app.use(express.json({ limit: '10kb' }));
+  // Parse JSON bodies
+  app.use(express.json({ limit: '10kb' }));
 
-    // Parse URL-encoded bodies with extended support and a size limit of 10kb.
-    app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+  // Parse URL-encoded bodies with extended support and a size limit of 10kb.
+  app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-    // Parse cookies
-    app.use(cookieParser());
+  // Parse cookies
+  app.use(cookieParser());
 
-    // API rate-Limit using express-rate-limit
-    const limiter = rateLimit({
-        max: RATE_LIMIT_MAX,
-        windowMs: Number(RATE_LIMIT_WINDOW_MIN) * 60 * 1000,
-        message: {
-            status: 'Error',
-            message:
-                'Too many requests from this IP, please try again in an hour!',
-        },
-    });
+  // API rate-Limit using express-rate-limit
+  const limiter = rateLimit({
+    max: RATE_LIMIT_MAX,
+    windowMs: Number(RATE_LIMIT_WINDOW_MIN) * 60 * 1000,
+    message: {
+      status: 'Error',
+      message: 'Too many requests from this IP, please try again in an hour!',
+    },
+  });
 
-    // Apply API rate limiting to the '/api' endpoint.
-    app.use('/api', limiter);
+  // Apply API rate limiting to the '/api' endpoint.
+  app.use('/api', limiter);
 
-    // Data sanitization against XSS
-    app.use(xss());
+  // Data sanitization against XSS
+  app.use(xss());
 
-    // Prevent parameter pollution
-    app.use(hpp());
+  // Prevent parameter pollution
+  app.use(hpp());
 
-    // Enable CORS
-    app.use(cors());
+  // Enable CORS
+  app.use(cors());
 
-    // Serve static files from the 'public' directory.
-    app.use(express.static(path.join(__dirname, '../public')));
+  // Serve static files from the 'public' directory.
+  app.use(express.static(path.join(__dirname, '../public')));
 };

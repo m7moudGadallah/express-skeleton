@@ -16,26 +16,26 @@ const routes = require('./routes');
  * const app = createApp(database);
  */
 async function createApp(database) {
-    // Connect to database
-    database.connect().then(() => {
-        console.log(
-            '('.cyan.underline.bold.italic +
-                database.databaseName.brightYellow.underline.bold.italic +
-                ') Database Connected🚀...'.cyan.underline.bold.italic
-        );
-    });
+  // Connect to database
+  database.connect().then(() => {
+    console.log(
+      '('.cyan.underline.bold.italic +
+        database.databaseName.brightYellow.underline.bold.italic +
+        ') Database Connected 🚀...'.cyan.underline.bold.italic
+    );
+  });
 
-    // Create express app
-    const app = express();
+  // Create express app
+  const app = express();
 
-    middlewaresLoader(app).pre();
+  middlewaresLoader(app).pre();
 
-    // Mount routes
-    routes(app);
+  // Mount routes
+  routes(app);
 
-    middlewaresLoader(app).post();
+  middlewaresLoader(app).post();
 
-    return app;
+  return app;
 }
 
 module.exports = createApp;
