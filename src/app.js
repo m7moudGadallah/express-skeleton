@@ -17,12 +17,16 @@ const routes = require('./routes');
  */
 async function createApp(database) {
   // Connect to database
-  await database.connect();
+  const DB = await database.connect();
+
   console.log(
     '('.cyan.underline.bold.italic +
       database.databaseName.brightYellow.underline.bold.italic +
       ') Database Connected 🚀...'.cyan.underline.bold.italic
   );
+
+  // Make the database globally accessible
+  global.DB = DB;
 
   // Create express app
   const app = express();
