@@ -17,13 +17,12 @@ const routes = require('./routes');
  */
 async function createApp(database) {
   // Connect to database
-  database.connect().then(() => {
-    console.log(
-      '('.cyan.underline.bold.italic +
-        database.databaseName.brightYellow.underline.bold.italic +
-        ') Database Connected 🚀...'.cyan.underline.bold.italic
-    );
-  });
+  await database.connect();
+  console.log(
+    '('.cyan.underline.bold.italic +
+      database.databaseName.brightYellow.underline.bold.italic +
+      ') Database Connected 🚀...'.cyan.underline.bold.italic
+  );
 
   // Create express app
   const app = express();
