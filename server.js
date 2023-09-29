@@ -13,12 +13,11 @@ const createApp = require('./src/app');
 
 const startApp = async (database, createApp) => {
   const { NODE_ENV: MODE, PORT = 3000 } = process.env;
-  /*
-  -> first connect to the DB
-  -> second create server using http built-in module and pass express app 
-     to handle all the commit requests.
-  */
+
+  // Create the Express application
   const app = await createApp(database);
+
+  // Start the server
   const server = http.createServer(app).listen(PORT, () => {
     console.log(
       'App is running in '.brightMagenta.underline.bold.italic +
@@ -27,6 +26,7 @@ const startApp = async (database, createApp) => {
         PORT.brightYellow.underline.bold.italic +
         ' 🚀...'.brightMagenta.underline.bold.italic
     );
+
     return server;
   });
 };
