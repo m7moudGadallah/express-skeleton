@@ -1,5 +1,5 @@
 const express = require('express');
-const preMiddlewares = require('../../src/middlewares/preMiddlewares');
+const preMiddlewares = require('../../../src/middlewares/preMiddlewares');
 
 describe('preMiddlewares', () => {
   const originalEnvVars = process.env;

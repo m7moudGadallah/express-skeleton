@@ -1,6 +1,6 @@
 require('colors');
-const globalErrorHandeler = require('../../../src/middlewares/errorHandlers/globalErrorHandler');
-const { JsonResponse } = require('../../../src/utils');
+const globalErrorHandeler = require('../../../../src/middlewares/errorHandlers/globalErrorHandler');
+const { JsonResponse } = require('../../../../src/utils');
 
 // Mock express request, response and next
 const mockRequest = {};
