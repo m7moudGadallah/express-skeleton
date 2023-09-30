@@ -87,9 +87,11 @@ class APIFeatures {
 
     // fill pagination object
     if (endIndex < total) {
+      const pageSize = total - endIndex > limit ? limit : total - endIndex;
+
       pagination.next = {
         page: page + 1,
-        pageSize: limit,
+        pageSize,
       };
     }
 

@@ -76,6 +76,21 @@ describe('APIFeatures Class', () => {
       expect(pagination).toEqual(expectedPagination);
     });
 
+    it('should create pagination object with next and prev properties and next pagesize less than limit', () => {
+      const page = 2;
+      const limit = 10;
+      const total = 29;
+      const expectedPagination = {
+        prev: { page: 1, pageSize: 10 },
+        next: { page: 3, pageSize: 9 },
+      };
+
+      const pagination = APIFeatures.createPaginationObject(page, limit, total);
+
+      expect(pagination).toBeDefined();
+      expect(pagination).toEqual(expectedPagination);
+    });
+
     it('should create pagination object with only next property', () => {
       const page = 1;
       const limit = 10;
