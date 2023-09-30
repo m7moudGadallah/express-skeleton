@@ -1,4 +1,4 @@
-const JsonResponse = require('../../../src/utils/JsonResponse');
+const JsonResponse = require('../../../utils/JsonResponse');
 
 const mockResponse = () => {
   const res = {};

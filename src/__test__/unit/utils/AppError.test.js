@@ -1,4 +1,4 @@
-const { AppError } = require('../../../src/utils');
+const { AppError } = require('../../../utils');
 
 describe('AppError class', () => {
   it('should create an instance from AppError', () => {

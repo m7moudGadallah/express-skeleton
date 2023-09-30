@@ -1,5 +1,5 @@
-const undefinedRoutesHandler = require('../../../../src/middlewares/errorHandlers/undefinedRoutesHandler');
-const { AppError } = require('../../../../src/utils');
+const undefinedRoutesHandler = require('../../../../middlewares/errorHandlers/undefinedRoutesHandler');
+const { AppError } = require('../../../../utils');
 
 describe('undefinedRoutesHandler', () => {
   // Mock Exress request and response objects

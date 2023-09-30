@@ -1,12 +1,12 @@
 const express = require('express');
-const errorHandlers = require('../../../src/middlewares/errorHandlers');
-const postMiddlewares = require('../../../src/middlewares/postMiddlewares');
+const errorHandlers = require('../../../middlewares/errorHandlers');
+const postMiddlewares = require('../../../middlewares/postMiddlewares');
 
 // Create a mock Express app
 const app = express();
 
 // Mock the errorHandlers.undefinedRouteHandler and errorHandlers.globalErrorHandler functions
-jest.mock('../../../src/middlewares/errorHandlers', () => ({
+jest.mock('../../../middlewares/errorHandlers', () => ({
   undefinedRouteHandler: jest.fn(),
   globalErrorHandler: jest.fn(),
 }));

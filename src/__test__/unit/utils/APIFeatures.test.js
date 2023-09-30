@@ -1,4 +1,4 @@
-const { APIFeatures } = require('../../../src/utils');
+const { APIFeatures } = require('../../../utils');
 
 describe('APIFeatures Class', () => {
   // Example request query for testing
