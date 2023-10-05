@@ -1,3 +1,17 @@
-node_modules
-rest.http
+# Ignore all env files
+*.env
+
+# Ignore coverage directory
 coverage
+
+# Ignore all log files
+*.log
+
+# Ignore node_modules directory
+node_modules
+
+# Ignore dependency graph directory
+.dependencygraph
+
+# Ignore all Rest Client files
+*.http
