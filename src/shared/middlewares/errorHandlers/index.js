@@ -1,4 +1,4 @@
-const { AppError, JsonResponse } = require('../../utils');
+const { AppError, JsonResponse } = require('../../shared/utils');
 
 // Loader Error Handlers
 const undefinedRouteHandlerLoader = require('./undefinedRoutesHandler');
