@@ -1,14 +1,14 @@
 /**
- * Database class for managing database connections.
+ * Database manager class for managing database connections.
  *
- * @class Database
+ * @class DatabaseManager
  */
-class Database {
+exports.DatabaseManager = class DatabaseManager {
   /**
-   * The single instance of the Database class.
+   * The single instance of the DatabaseManager class.
    *
    * @private
-   * @type {Database}
+   * @type {DatabaseManager}
    */
   static #instance;
 
@@ -16,7 +16,7 @@ class Database {
    * The database or ORM client object used to interact with the database.
    *
    * @private
-   * @type {object}
+   * @type {Object}
    */
   #dbClient;
 
@@ -24,31 +24,40 @@ class Database {
    * The name of the database.
    *
    * @public
-   * @type {string}
+   * @type {String}
    */
   databaseName;
+
+  /**
+   * This attribute holds an instance of the Prisma Client or the database ORM object
+   * that is used for interacting with the database.
+   *
+   * @public
+   * @type {Object}
+   */
+  database;
 
   /**
    * The connection URL for the database.
    *
    * @private
-   * @type {string}
+   * @type {String}
    */
   #connectionURL;
 
   /**
    * Creates an instance of Database.
    *
-   * @param {object} dbClient - The database or ORM client object used to interact with the database.
-   * @param {object} options - The database connection options.
-   * @memberof Database
+   * @param {Object} dbClient - The Prisma Client instance used to interact with the database.
+   * @param {Object} options - The database connection options.
+   * @memberof DatabaseManager
    */
   constructor(dbClient, options = {}) {
     // Destructure options within the constructor body
     const { databaseURL, databaseName, username, password } = options;
 
     // If no instance exists, create and store it
-    if (!Database.#instance) {
+    if (!DatabaseManager.#instance) {
       // Set the databaseName as a public attribute
       this.databaseName = databaseName;
 
@@ -56,19 +65,20 @@ class Database {
       this.#dbClient = dbClient;
 
       // Construct the connection URL
-      //   TODO CONSTRUCT THE CORRECT URL
-
-      // TODO: Uncomment once you sett this varaibles in .env
+      // TODO: Uncomment once you setting this variables in .env
       // this.#connectionURL = databaseURL
       //   .replace('<username>', username)
       //   .replace('<password>', password)
       //   .replace('<DB>', databaseName);
 
-      Database.#instance = this;
+      // Set the database property to null
+      this.database = null;
+
+      DatabaseManager.#instance = this;
     }
 
     // Return the singleton instance
-    return Database.#instance;
+    return DatabaseManager.#instance;
   }
 
   /**
@@ -81,6 +91,8 @@ class Database {
     // Example: For MongoDB, connect using the provided connection URL
     // Example: For Prisma, create a Prisma Client instance
     // Replace this comment with the actual implementation
+    // Set this.database to the database client instance
+    // Return this.database
     return Promise.resolve(); // Placeholder for connection
   }
 
@@ -94,8 +106,9 @@ class Database {
     // Example: For MongoDB, disconnect the MongoDB connection
     // Example: For Prisma, disconnect the Prisma Client
     // Replace this comment with the actual implementation
+    // Disconnect the database client
+    // Set this.database to null
+    // Return this.database
     return Promise.resolve(); // Placeholder for disconnection
   }
-}
-
-module.exports = Database;
+};

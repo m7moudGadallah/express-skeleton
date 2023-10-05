@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const configENV = `${__dirname}/.env`;
 dotenv.config({ path: configENV }); // Load environment variables
 
-const Database = require('./Database');
+const { DatabaseManager } = require('./databaseManager');
 
 /**
  * Configuration module for the application.
@@ -38,18 +38,11 @@ const selectDB = (MODE) => {
 /**
  * Create a new instance of the Database class for managing database connections.
  *
- * @type {Database}
+ * @type {DatabaseManager}
  */
-const database = new Database(dbClient, {
+exports.databaseManager = new DatabaseManager(dbClient, {
   databaseURL: DATABASE_URL,
   databaseName: selectDB(MODE),
   username: DATABASE_USERNAME,
   password: DATABASE_PASSWORD,
 });
-
-/**
- * The configured database instance for the application.
- *
- * @type {Database}
- */
-module.exports = database;
