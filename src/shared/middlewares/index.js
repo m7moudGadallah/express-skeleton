@@ -12,52 +12,35 @@ const path = require('path');
 // Load middlewares
 const preMiddlewaresLoader = require('./preMiddlewares');
 const postMiddlewaresLoader = require('./postMiddlewares');
-const customMiddlewares = require('./customMiddlewares');
 
 /**
- * Exposes custom middlewares, pre-middlewares, and post-middlewares for an Express.js application.
+ * Middleware loader function.
  *
  * @param {object} app - The Express.js application instance.
- * @returns {object} An object containing middleware functions.
+ * @returns {object} An object with methods to load pre-middlewares and post-middlewares.
  */
-module.exports = {
+exports.middlewaresLoader = (app) => ({
   /**
-   * Custom middlewares for the application.
-   * @type {object}
+   * Load pre-middlewares before routes.
    */
-  customMiddlewares,
-
-  /**
-   * Middleware loader function.
-   *
-   * @param {object} app - The Express.js application instance.
-   * @returns {object} An object with methods to load pre-middlewares and post-middlewares.
-   */
-  middlewaresLoader(app) {
-    return {
-      /**
-       * Load pre-middlewares before routes.
-       */
-      pre() {
-        preMiddlewaresLoader(app, {
-          morgan,
-          express,
-          cookieParser,
-          helmet,
-          rateLimit,
-          xss,
-          hpp,
-          cors,
-          path,
-        });
-      },
-
-      /**
-       * Load post-middlewares after routes.
-       */
-      post() {
-        postMiddlewaresLoader(app);
-      },
-    };
+  pre() {
+    preMiddlewaresLoader(app, {
+      morgan,
+      express,
+      cookieParser,
+      helmet,
+      rateLimit,
+      xss,
+      hpp,
+      cors,
+      path,
+    });
   },
-};
+
+  /**
+   * Load post-middlewares after routes.
+   */
+  post() {
+    postMiddlewaresLoader(app);
+  },
+});
