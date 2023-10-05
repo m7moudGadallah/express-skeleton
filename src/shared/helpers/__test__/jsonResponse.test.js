@@ -1,4 +1,4 @@
-const JsonResponse = require('../JsonResponse');
+const JsonResponse = require('../jsonResponse');
 
 /**
  * Create mock response object.
