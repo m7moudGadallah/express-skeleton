@@ -1,8 +1,8 @@
-const undefinedRoutesHandler = require('../../../../middlewares/errorHandlers/undefinedRoutesHandler');
-const { AppError } = require('../../../../utils');
+const undefinedRoutesHandler = require('../../errorHandlers/undefinedRoutesHandler');
+const { AppError } = require('../../../helpers');
 
 describe('undefinedRoutesHandler', () => {
-  // Mock Exress request and response objects
+  // Mock Express request and response objects
   const req = {};
   const res = {};
   const next = jest.fn();

@@ -72,7 +72,7 @@ describe('preMiddlewares', () => {
     expect(dependencies.morgan).not.toHaveBeenCalled();
   });
 
-  it('should apply body parseing middlewares (json, urlencoded)', () => {
+  it('should apply body parsing middlewares (json, urlencoded)', () => {
     // Call the preMiddlewares function
     preMiddlewares(app, dependencies);
 
