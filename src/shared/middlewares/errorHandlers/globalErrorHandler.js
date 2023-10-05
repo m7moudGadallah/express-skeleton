@@ -12,7 +12,7 @@ const databaseErrorHandler = require('./databaseErrorHandler');
  * @param {Function} dependencies.JsonResponse - A constructor function for creating standardized JSON response instances.
  * @returns {Function} - A global error handling middleware function for Express.js.
  *
- * @function globalErrorHandeler
+ * @function globalErrorHandler
  *
  * @param {Error} err - The error object.
  * @param {object} req - The Express request object.
@@ -36,12 +36,16 @@ module.exports = (dependencies) => {
 
     return new JsonResponse(res, err.statusCode)
       .setMainContent(false, 'something went wrong')
-      .setFailedPayload({
-        status: err.status,
-        error: err,
-        message: err.message,
-        stack: err.stack,
-      })
+      .setError(
+        {
+          status: err.status,
+          message: err.message,
+        },
+        {
+          error: err,
+          stack: err.stack,
+        }
+      )
       .send();
   };
 
@@ -56,7 +60,7 @@ module.exports = (dependencies) => {
     if (err.isOperational) {
       return new JsonResponse(res, err.statusCode)
         .setMainContent(false, 'something went wrong')
-        .setFailedPayload({
+        .setError({
           status: err.status,
           message: err.message,
         })
@@ -67,7 +71,7 @@ module.exports = (dependencies) => {
 
     return new JsonResponse(res, 500)
       .setMainContent(false, 'something went wrong')
-      .setFailedPayload({
+      .setError({
         status: 'error',
         message: 'Something went very wrong!',
       })
@@ -76,13 +80,13 @@ module.exports = (dependencies) => {
 
   /**
    * Global error handler middleware.
-   * @function globalErrorHandeler
+   * @function globalErrorHandler
    * @param {Error} err - The error object.
    * @param {object} req - The request object.
    * @param {object} res - The response object.
    * @param {function} next - The next middleware function.
    */
-  const globalErrorHandeler = (err, req, res, next) => {
+  const globalErrorHandler = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'Error';
 
@@ -97,5 +101,5 @@ module.exports = (dependencies) => {
     return sendErrorDev(err, req, res);
   };
 
-  return globalErrorHandeler;
+  return globalErrorHandler;
 };
