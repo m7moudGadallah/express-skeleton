@@ -46,9 +46,9 @@ class JsonResponse {
    * // Attach a non-secure cookie with the default name 'jwt'
    * response.attachTokenCookie('my-token', 3600);
    */
-  attachTokenCookie(token, expirexIn, { secure = false, cookieName = 'jwt' }) {
+  attachTokenCookie(token, expiresIn, { secure = false, cookieName = 'jwt' }) {
     const cookieOptions = {
-      expires: expirexIn,
+      expires: expiresIn,
       httpOnly: true,
     };
 
