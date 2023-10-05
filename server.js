@@ -1,7 +1,7 @@
 const http = require('http');
 require('colors');
-const database = require('./src/config');
-const createApp = require('./src/app');
+const { databaseManager } = require('./src/config');
+const { createApp } = require('./src/app');
 
 /**
  * Main entry point for the application.
@@ -15,7 +15,7 @@ const startApp = async (database, createApp) => {
   const { NODE_ENV: MODE, PORT = 3000 } = process.env;
 
   // Create the Express application
-  const app = await createApp(database);
+  const app = await createApp(databaseManager);
 
   // Start the server
   const server = http.createServer(app).listen(PORT, () => {
@@ -32,4 +32,4 @@ const startApp = async (database, createApp) => {
 };
 
 // Start the application
-module.exports = startApp(database, createApp);
+module.exports = startApp(databaseManager, createApp);
